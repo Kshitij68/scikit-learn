@@ -1344,10 +1344,11 @@ def check_is_fitted(estimator, attributes=None, *, msg=None, all_or_any=all):
     elif hasattr(estimator, "__sklearn_is_fitted__"):
         fitted = estimator.__sklearn_is_fitted__()
     else:
+        # Goes here for the test `test_predicted_outlier_number`
+        # You need to inject attributes as well as variables
         fitted = [
             v for v in vars(estimator) if v.endswith("_") and not v.startswith("__")
         ]
-
     if not fitted:
         raise NotFittedError(msg % {"name": type(estimator).__name__})
 
